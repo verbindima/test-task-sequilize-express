@@ -1,0 +1,126 @@
+{
+  "env": {
+    "node": true,
+    "es2022": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2023,
+    "sourceType": "module"
+  },
+  "extends": [
+    "eslint:recommended"
+  ],
+  "plugins": [
+    "node",
+    "sonarjs",
+    "import",
+    "unicorn",
+    "simple-import-sort",
+    "jest"
+  ],
+  "rules": {
+    "quotes": [
+      "error",
+      "single",
+      {
+        "avoidEscape": true
+      }
+    ],
+    "semi": [
+      "error",
+      "never"
+    ],
+    "space-before-blocks": "error",
+    "space-infix-ops": "error",
+    "indent": [
+      "error",
+      2
+    ],
+    "no-multiple-empty-lines": [
+      "error",
+      {
+        "max": 1,
+        "maxEOF": 0,
+        "maxBOF": 0
+      }
+    ],
+    "no-multi-spaces": "error",
+    "camelcase": "error",
+    "object-curly-spacing": [
+      "error",
+      "always"
+    ],
+    "node/no-deprecated-api": "error",
+    "sonarjs/no-use-of-empty-return-value": "error",
+    "sonarjs/non-existent-operator": "error",
+    "sonarjs/no-collapsible-if": "error",
+    "sonarjs/no-redundant-jump": "error",
+    "sonarjs/no-identical-expressions": "error",
+    "sonarjs/no-identical-conditions": "error",
+    "sonarjs/no-identical-functions": "error",
+    "sonarjs/no-nested-switch": "error",
+    "sonarjs/no-nested-template-literals": "warn",
+    "sonarjs/no-redundant-boolean": "error",
+    "sonarjs/no-same-line-conditional": "error",
+    "sonarjs/prefer-object-literal": "error",
+    "sonarjs/prefer-single-boolean-return": "error",
+    "sonarjs/prefer-while": "error",
+    "sonarjs/no-empty-collection": "error",
+    "sonarjs/no-extra-arguments": "error",
+    "import/extensions": [
+      "error",
+      "always"
+    ],
+    "unicorn/better-regex": "error",
+    "unicorn/custom-error-definition": "error",
+    "unicorn/expiring-todo-comments": "error",
+    "unicorn/filename-case": [
+      "error",
+      {
+        "case": "kebabCase"
+      }
+    ],
+    "unicorn/no-abusive-eslint-disable": "error",
+    "unicorn/no-await-expression-member": "error",
+    "unicorn/no-for-loop": "error",
+    "unicorn/no-nested-ternary": "error",
+    "unicorn/throw-new-error": "error",
+    "unicorn/prevent-abbreviations": "error",
+    "unicorn/prefer-optional-catch-binding": "error",
+    "unicorn/prefer-number-properties": "error",
+    "unicorn/prefer-export-from": "error",
+    "unicorn/no-useless-spread": "error",
+    "unicorn/no-unsafe-regex": "error",
+    "unicorn/no-unreadable-array-destructuring": "error",
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index",
+          "object",
+          "type"
+        ]
+      }
+    ],
+    "import/newline-after-import": "error",
+    "import/no-commonjs": "error"
+  },
+  "reportUnusedDisableDirectives": true,
+  "overrides": [
+    {
+      "files": [
+        "**/__tests__/**/*.[jt]s?(x)",
+        "**/?(*.)+(spec|test).[jt]s?(x)",
+        "**/**.test.js"
+      ],
+      "env": {
+        "jest/globals": true
+      }
+    }
+  ]
+}
