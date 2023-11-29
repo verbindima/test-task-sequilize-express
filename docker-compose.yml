@@ -1,0 +1,14 @@
+# docker-compose.yml
+version: "3"
+services:
+  db:
+    container_name: postgres-test-task
+    image: postgres:alpine
+    restart: unless-stopped
+    ports:
+      - "${TEST_DATABASE_PORT}:5432"
+    environment:
+      POSTGRES_DB: ${TEST_DATABASE_NAME}
+      POSTGRES_USER: ${TEST_DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${TEST_DATABASE_PASSWORD}
+    tmpfs: /var/lib/postgresql/data
