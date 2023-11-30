@@ -16,25 +16,36 @@ app.post('/update-balance', async (request, response) => {
   if (!userId || !amount) {
     return response.status(400).json({ error: 'Missing required parameters' })
   }
-
   try {
-    const user = await User.findOne({ where: { id: userId } })
-    if (!user) {
-      return response.status(404).json({ error: 'User not found' })
+    const t = await database.sequelize.transaction()
+    try {
+      const user = await User.findOne({ where: { id: userId }, transaction: t })
+      if (!user) {
+        await t.rollback()
+        return response.status(404).json({ error: 'User not found' })
+      }
+
+      const newBalance = user.balance + amount
+
+      if (newBalance < 0) {
+        await t.rollback()
+        return response.status(400).json({ error: 'Insufficient funds' })
+      }
+
+      user.balance = newBalance
+      await user.save({ transaction: t })
+
+      await t.commit()
+
+      return response.json({ success: true, balance: user.balance })
+    } catch (error) {
+      await t.rollback()
+      throw error
     }
-
-    const newBalance = user.balance + amount
-
-    if (newBalance < 0) {
-      return response.status(400).json({ error: 'Insufficient funds' })
-    }
-
-    user.balance = newBalance
-    await user.save()
-
-    return response.json({ success: true, balance: user.balance })
-  } catch (error) {
-    return response.status(500).json({ error: 'Internal server error', message: error.message })
+  }
+  catch (error) {
+    return response.status(500)
+      .json({ error: 'Internal server error', message: error.message })
   }
 })
 
